@@ -10,14 +10,14 @@ generate_collection <- function(candy_data){
 }
 
 generate_collection_curve <- function(samples){
-  encountered <- c(samples[1])
-  x <- c(1)
-  y <- c(1)
-  for (i in 2:length(samples)){
-    curr_y <- if (samples[i] %in% unique(encountered)) 0 else 1
-    encountered <- c(encountered, samples[i])
-    x <- c(x, i)
-    y <- c(y, y[i-1]+curr_y)
+  encountered <- c()
+  x <- c(0)
+  y <- c(0)
+  for (sample in samples){
+    increment <- if (sample %in% encountered) 0 else 1
+    encountered <- c(encountered, sample)
+    x <- c(x, last(x) + 1)
+    y <- c(y, last(y) + increment)
   }
   return(data.frame(x = x, y = y))
 }
