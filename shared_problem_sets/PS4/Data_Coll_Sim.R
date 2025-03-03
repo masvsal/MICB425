@@ -1,4 +1,5 @@
 library(dplyr)
+library(ggplot2)
 
 generate_collection <- function(candy_data){
   candy_pool <- c()
@@ -13,7 +14,7 @@ generate_collection_curve <- function(samples){
   x <- c(1)
   y <- c(1)
   for (i in 2:length(samples)){
-    curr_y <- if (!(samples[i] %in% unique(encountered))) 1 else 0
+    curr_y <- if (samples[i] %in% unique(encountered)) 0 else 1
     encountered <- c(encountered, samples[i])
     x <- c(x, i)
     y <- c(y, y[i-1]+curr_y)
