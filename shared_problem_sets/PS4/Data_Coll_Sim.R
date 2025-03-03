@@ -10,15 +10,15 @@ generate_collection <- function(candy_data){
 }
 
 generate_collection_curve <- function(samples){
-  encountered <- c()
+  encountered <- c("")
   x <- c(0)
   y <- c(0)
   for (sample in samples){
     x <- c(x, last(x) + 1)
-    y <- c(y, last(y) + (sample %in% encountered))
+    y <- c(y, last(y) + !(sample %in% encountered))
     encountered <- c(encountered, sample)
   }
-  return(data.frame(x = x, y = y))
+  return(data.frame(x = x, y = y, name = encountered))
 }
 
 #PARAMETERS
@@ -37,4 +37,4 @@ candy_samples <- sample(candy_pool, NUM_SAMPLES, replace = F)
 collection_curve <- generate_collection_curve(candy_samples)
 
 #plot collection curve
-plot(collection_curve, main = "Collection Curve")
+plot(collection_curve[,1:2], main = "Collection Curve")
