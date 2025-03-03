@@ -14,10 +14,9 @@ generate_collection_curve <- function(samples){
   x <- c(0)
   y <- c(0)
   for (sample in samples){
-    increment <- if (sample %in% encountered) 0 else 1
-    encountered <- c(encountered, sample)
     x <- c(x, last(x) + 1)
-    y <- c(y, last(y) + increment)
+    y <- c(y, last(y) + (sample %in% encountered))
+    encountered <- c(encountered, sample)
   }
   return(data.frame(x = x, y = y))
 }
